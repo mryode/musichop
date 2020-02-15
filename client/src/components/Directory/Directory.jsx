@@ -2,9 +2,9 @@ import React from 'react';
 
 import MenuItem from '../MenuItem/MenuItem';
 
-import './Directory.scss';
-
 import { sections } from '../../products';
+
+import './Directory.scss';
 
 function Directory() {
   return (
