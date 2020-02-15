@@ -18,6 +18,9 @@ function Header() {
         <Link to="/" className="header-link">
           CONTACT
         </Link>
+        <Link to="/signin" className="header-link">
+          SIGN IN
+        </Link>
       </div>
     </header>
   );
