@@ -1,0 +1,37 @@
+.header {
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  text-decoration: none;
+
+  .header-logo {
+    width: 70px;
+    padding: 25px 0;
+  }
+
+  .header-links {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .header-link {
+    padding: 10px 15px;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+}
