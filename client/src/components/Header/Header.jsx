@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './Header.scss';
 
-function Header() {
+function Header({ currentUser, handleSignOutClick }) {
   return (
     <header className="header">
       <div className="header-logo">
@@ -18,9 +18,15 @@ function Header() {
         <Link to="/" className="header-link">
           CONTACT
         </Link>
-        <Link to="/signin" className="header-link">
-          SIGN IN
-        </Link>
+        {currentUser ? (
+          <div className="header-link" onClick={handleSignOutClick}>
+            SIGN OUT
+          </div>
+        ) : (
+          <Link to="/signin" className="header-link">
+            SIGN IN
+          </Link>
+        )}
       </div>
     </header>
   );

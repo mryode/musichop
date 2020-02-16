@@ -7,8 +7,7 @@
   text-decoration: none;
 
   .header-logo {
-    width: 70px;
-    padding: 25px 0;
+    margin: auto 0;
   }
 
   .header-links {
@@ -25,6 +24,7 @@
     font-weight: 600;
     text-decoration: none;
     color: black;
+    cursor: pointer;
 
     &:first-child {
       padding-left: 0;
