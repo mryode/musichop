@@ -7,7 +7,7 @@ import Home from './pages/Home/Home';
 import Auth from './pages/Auth/Auth';
 import Shop from './pages/Shop/Shop';
 
-import './App.css';
+import './App.scss';
 
 function App() {
   const renderApp = (currentUser, auth) => (

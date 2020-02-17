@@ -17,7 +17,7 @@ export default class FirebaseAuth extends React.Component {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         // Get refernceObject
-        const userRef = createUserProfileDocument(userAuth);
+        const userRef = await createUserProfileDocument(userAuth);
 
         // Listen for changes
         userRef.onSnapshot(snapshot => {
