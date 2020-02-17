@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { auth } from '../../firebase/firebase.utils';
+import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
 export default class FirebaseAuth extends React.Component {
   unsubscribeFromAuth = null;
@@ -14,10 +14,24 @@ export default class FirebaseAuth extends React.Component {
   }
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user });
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        // Get refernceObject
+        const userRef = createUserProfileDocument(userAuth);
 
-      console.log('user', user);
+        // Listen for changes
+        userRef.onSnapshot(snapshot => {
+          const snapshotData = snapshot.data();
+          const currentUser = {
+            id: snapshot.id,
+            ...snapshotData,
+          };
+
+          this.setState({ currentUser });
+        });
+      } else {
+        this.setState({ currentUser: userAuth });
+      }
     });
   }
 
