@@ -10,12 +10,9 @@ import Shop from './pages/Shop/Shop';
 import './App.scss';
 
 function App() {
-  const renderApp = (currentUser, auth) => (
+  const renderApp = auth => (
     <div className="App">
-      <Header
-        currentUser={currentUser}
-        handleSignOutClick={() => auth.signOut()}
-      />
+      <Header handleSignOutClick={() => auth.signOut()} />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/shop" component={Shop} />
@@ -24,11 +21,7 @@ function App() {
     </div>
   );
 
-  return (
-    <FirebaseAuth
-      render={(currentUser, auth) => renderApp(currentUser, auth)}
-    />
-  );
+  return <FirebaseAuth render={auth => renderApp(auth)} />;
 }
 
 export default App;

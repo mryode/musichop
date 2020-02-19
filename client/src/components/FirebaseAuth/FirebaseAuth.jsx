@@ -1,19 +1,15 @@
 import React from 'react';
 
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+import { connect } from 'react-redux';
 
-export default class FirebaseAuth extends React.Component {
+import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+import { setCurrentUser } from '../../redux/user/userActions';
+
+class FirebaseAuth extends React.Component {
   unsubscribeFromAuth = null;
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      currentUser: null,
-    };
-  }
-
   componentDidMount() {
+    const { setCurrentUser } = this.props;
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         // Get refernceObject
@@ -27,10 +23,10 @@ export default class FirebaseAuth extends React.Component {
             ...snapshotData,
           };
 
-          this.setState({ currentUser });
+          setCurrentUser(currentUser);
         });
       } else {
-        this.setState({ currentUser: userAuth });
+        setCurrentUser(userAuth);
       }
     });
   }
@@ -40,11 +36,13 @@ export default class FirebaseAuth extends React.Component {
   }
 
   render() {
-    const { currentUser } = this.state;
-
-    console.log('auth', auth);
-
     // eslint-disable-next-line
-    return this.props.render(currentUser, auth);
+    return this.props.render(auth);
   }
 }
+
+const mapDispatchProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user)),
+});
+
+export default connect(null, mapDispatchProps)(FirebaseAuth);

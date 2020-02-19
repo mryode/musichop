@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './Header.scss';
 
@@ -32,4 +34,13 @@ function Header({ currentUser, handleSignOutClick }) {
   );
 }
 
-export default Header;
+Header.propTypes = {
+  currentUser: PropTypes.object,
+  handleSignOutClick: PropTypes.func,
+};
+
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(Header);
