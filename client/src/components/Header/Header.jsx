@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import './Header.scss';
 
-function Header({ currentUser, handleSignOutClick }) {
+function Header({ currentUser, signOut }) {
   return (
     <header className="header">
       <div className="header-logo">
@@ -21,7 +21,7 @@ function Header({ currentUser, handleSignOutClick }) {
           CONTACT
         </Link>
         {currentUser ? (
-          <div className="header-link" onClick={handleSignOutClick}>
+          <div className="header-link" onClick={signOut}>
             SIGN OUT
           </div>
         ) : (
@@ -36,7 +36,7 @@ function Header({ currentUser, handleSignOutClick }) {
 
 Header.propTypes = {
   currentUser: PropTypes.object,
-  handleSignOutClick: PropTypes.func,
+  signOut: PropTypes.func,
 };
 
 const mapStateToProps = state => ({

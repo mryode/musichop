@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
-import { setCurrentUser } from '../../redux/user/userActions';
+import userActions from '../../redux/user/userActions';
 
 class FirebaseAuth extends React.Component {
   unsubscribeFromAuth = null;
@@ -12,7 +13,7 @@ class FirebaseAuth extends React.Component {
     const { setCurrentUser } = this.props;
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
-        // Get refernceObject
+        // Get referenceObject
         const userRef = await createUserProfileDocument(userAuth);
 
         // Listen for changes
@@ -36,13 +37,28 @@ class FirebaseAuth extends React.Component {
   }
 
   render() {
-    // eslint-disable-next-line
-    return this.props.render(auth);
+    const { children, passSignOutTo } = this.props;
+    const headerWithLogout = React.Children.map(children, child => {
+      if (
+        child.type.displayName &&
+        child.type.displayName.includes(passSignOutTo)
+      ) {
+        return React.cloneElement(child, { signOut: () => auth.signOut() });
+      }
+      return child;
+    });
+    return headerWithLogout;
   }
 }
 
+FirebaseAuth.propTypes = {
+  children: PropTypes.node,
+  passSignOutTo: PropTypes.string,
+  setCurrentUser: PropTypes.func,
+};
+
 const mapDispatchProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user)),
+  setCurrentUser: user => dispatch(userActions.setCurrentUser(user)),
 });
 
 export default connect(null, mapDispatchProps)(FirebaseAuth);
