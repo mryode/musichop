@@ -43,7 +43,7 @@ export default class SignIn extends Component {
         <h2 className="form-title">I already have an account</h2>
         <span>Sign in with email and password</span>
 
-        <form>
+        <form onSubmit={this.handleSignInSubmit}>
           <FormInput
             required
             type="email"

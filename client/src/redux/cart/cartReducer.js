@@ -11,6 +11,9 @@ export default (state = initialState, { type, payload }) => {
     case cartActionTypes.TOGGLE_CART_HIDDEN:
       return { ...state, hidden: !state.hidden };
 
+    case cartActionTypes.SET_CART_HIDDEN:
+      return { ...state, hidden: payload };
+
     case cartActionTypes.ADD_ITEM:
       return { ...state, cartItems: addItemToCart(state.cartItems, payload) };
 

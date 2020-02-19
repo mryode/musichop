@@ -61,7 +61,7 @@ export default class SignUp extends Component {
         <h2>I don't have an account</h2>
         <span>Sign up with your email and password</span>
 
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <FormInput
             required
             type="text"
