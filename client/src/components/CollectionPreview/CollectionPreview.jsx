@@ -8,22 +8,16 @@ import CollectionItem from '../CollectionItem/CollectionItem';
 import './CollectionPreview.scss';
 
 function CollectionPreview({ title, items }) {
-  console.log('items', items);
   return (
     <div className="collection-preview">
       <h1 className="collection-title">{title.toUpperCase()}</h1>
       <div className="preview">
         {items
           .filter((item, index) => index < 3)
-          .map(({ id, name, imageUrl, price }) => (
-            <CollectionItem
-              key={id}
-              imageUrl={imageUrl}
-              name={name}
-              price={price}
-            />
+          .map(item => (
+            <CollectionItem key={item.id} item={item} />
           ))}
-
+        {/* TODO redirect to collection's page onClick */}
         <div className="collection-view-more">
           <ReactSVG
             className="collection-view-more-icon"
@@ -38,6 +32,7 @@ function CollectionPreview({ title, items }) {
 
 CollectionPreview.propTypes = {
   title: PropTypes.string,
+  routeName: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.object),
 };
 

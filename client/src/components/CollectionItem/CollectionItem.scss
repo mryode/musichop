@@ -5,6 +5,18 @@
   height: 350px;
   align-items: center;
   margin: 10px auto;
+  position: relative;
+
+  &:hover {
+    .collection-item-image {
+      opacity: 0.8;
+    }
+
+    .custom-button {
+      opacity: 0.85;
+      top: 260px;
+    }
+  }
 
   .collection-item-image {
     width: 100%;
@@ -29,5 +41,11 @@
     .collection-item-price {
       width: 10%;
     }
+  }
+
+  .custom-button {
+    position: absolute;
+    opacity: 0;
+    top: 280px;
   }
 }

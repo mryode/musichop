@@ -1,9 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+
+import cartActions from '../../redux/cart/cartActions';
+
+import Button from '../Button/Button';
+
 import './CollectionItem.scss';
 
-function CollectionItem({ imageUrl, name, price }) {
+function CollectionItem({ item, addItem }) {
+  const { imageUrl, name, price } = item;
   return (
     <div className="collection-item">
       <div
@@ -14,14 +21,25 @@ function CollectionItem({ imageUrl, name, price }) {
         <span className="collection-item-name">{name}</span>
         <span className="collection-item-price">{price}</span>
       </div>
+      <Button inverted onClick={() => addItem(item)}>
+        ADD TO CART
+      </Button>
     </div>
   );
 }
 
 CollectionItem.propTypes = {
-  name: PropTypes.string,
-  imageUrl: PropTypes.string,
-  price: PropTypes.number,
+  item: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    imageUrl: PropTypes.string,
+    price: PropTypes.number,
+  }),
+  addItem: PropTypes.func,
 };
 
-export default CollectionItem;
+const mapDispatchToProps = dispatch => ({
+  addItem: item => dispatch(cartActions.addItem(item)),
+});
+
+export default connect(null, mapDispatchToProps)(CollectionItem);
