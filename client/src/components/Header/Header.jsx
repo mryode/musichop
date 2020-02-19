@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Link } from 'react-router-dom';
+
 import { connect } from 'react-redux';
+
+import CartIcon from '../CartIcon/CartIcon';
+import CartDropdown from '../CartDropdown/CartDropdown';
 
 import './Header.scss';
 
@@ -29,7 +34,9 @@ function Header({ currentUser, signOut }) {
             SIGN IN
           </Link>
         )}
+        <CartIcon />
       </div>
+      <CartDropdown />
     </header>
   );
 }
