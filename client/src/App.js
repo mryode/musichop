@@ -1,7 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
+import { selectCurrentUser } from './redux/user/userSelectors';
 
 import Header from './components/Header/Header';
 import FirebaseAuth from './components/FirebaseAuth/FirebaseAuth';
@@ -30,8 +33,12 @@ function App({ currentUser }) {
   );
 }
 
+App.propTypes = {
+  currentUser: PropTypes.object,
+};
+
 const mapStateToProps = state => ({
-  currentUser: state.user.currentUser,
+  currentUser: selectCurrentUser(state),
 });
 
 export default connect(mapStateToProps)(App);

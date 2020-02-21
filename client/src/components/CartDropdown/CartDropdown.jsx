@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import cartActions from '../../redux/cart/cartActions';
-import { selectCartItems } from '../../redux/cart/cartSelectors';
+import {
+  selectCartHidden,
+  selectCartItems,
+} from '../../redux/cart/cartSelectors';
 
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 
@@ -46,7 +49,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  hidden: state.cart.hidden,
+  hidden: selectCartHidden(state),
   cartItems: selectCartItems(state),
 });
 
