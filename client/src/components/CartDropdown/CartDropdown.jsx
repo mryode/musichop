@@ -29,9 +29,11 @@ function CartDropdown({ hidden, setCartHidden, cartItems }) {
       className={`cart-dropdown cart-dropdown-${hidden ? 'hidden' : 'visible'}`}
     >
       <div className="cart-items">
-        {cartItems.map(item => (
-          <CartItem key={item.id} item={item} />
-        ))}
+        {cartItems.length ? (
+          cartItems.map(item => <CartItem key={item.id} item={item} />)
+        ) : (
+          <span className="cart-empty-message">Your cart is empty</span>
+        )}
       </div>
       <Button>GO TO CHECKOUT</Button>
     </div>
