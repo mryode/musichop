@@ -7,10 +7,11 @@ import cartActions from '../../redux/cart/cartActions';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 
 import Button from '../Button/Button';
+import CartItem from '../CartItem/CartItem';
 
 import './CartDropdown.scss';
 
-function CartDropdown({ hidden, setCartHidden }) {
+function CartDropdown({ hidden, setCartHidden, cartItems }) {
   useOnClickOutside(
     [
       document.querySelector('.cart-dropdown'),
@@ -23,7 +24,11 @@ function CartDropdown({ hidden, setCartHidden }) {
     <div
       className={`cart-dropdown cart-dropdown-${hidden ? 'hidden' : 'visible'}`}
     >
-      <div className="cart-item" />
+      <div className="cart-items">
+        {cartItems.map(item => (
+          <CartItem key={item.id} item={item} />
+        ))}
+      </div>
       <Button>GO TO CHECKOUT</Button>
     </div>
   );
@@ -32,6 +37,7 @@ function CartDropdown({ hidden, setCartHidden }) {
 CartDropdown.propTypes = {
   hidden: PropTypes.bool,
   setCartHidden: PropTypes.func,
+  cartItems: PropTypes.arrayOf(PropTypes.object),
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -40,6 +46,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   hidden: state.cart.hidden,
+  cartItems: state.cart.cartItems,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartDropdown);
