@@ -1,6 +1,6 @@
 # Musichop 🎶
 
-An online music store for different kinds of music instrument.
+An online music store.
 
 ## Technologies
 
