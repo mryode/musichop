@@ -1,33 +1,41 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { selectCollections } from '../../redux/shop/shopSelectors';
 
 import CollectionPreview from '../../components/CollectionPreview/CollectionPreview';
 
-import { ShopsData } from '../../products';
-
 import './Shop.scss';
 
-export default class Shop extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      collections: ShopsData,
-    };
-  }
-
-  render() {
-    const { collections } = this.state;
-    return (
-      <div className="shop-page">
-        {collections.map(({ id, title, routeName, items }) => (
-          <CollectionPreview
-            key={id}
-            title={title}
-            routeName={routeName}
-            items={items}
-          />
-        ))}
-      </div>
-    );
-  }
+function Shop({ collections }) {
+  return (
+    <div className="shop-page">
+      {collections.map(({ id, title, routeName, items }) => (
+        <CollectionPreview
+          key={id}
+          title={title}
+          routeName={routeName}
+          items={items}
+        />
+      ))}
+    </div>
+  );
 }
+
+Shop.propTypes = {
+  collections: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      title: PropTypes.string,
+      routeName: PropTypes.string,
+      items: PropTypes.array,
+    })
+  ),
+};
+
+const mapStateToProps = state => ({
+  collections: selectCollections(state),
+});
+
+export default connect(mapStateToProps)(Shop);

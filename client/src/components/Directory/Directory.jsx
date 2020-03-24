@@ -1,12 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { selectDirectory } from '../../redux/directory/directorySelectors';
 
 import MenuItem from '../MenuItem/MenuItem';
 
-import { sections } from '../../products';
-
 import './Directory.scss';
 
-function Directory() {
+function Directory({ directory }) {
+  const { sections } = directory;
+
   return (
     <div className="directory-menu">
       {sections.map(({ id, title, imageUrl, size }) => (
@@ -16,4 +20,20 @@ function Directory() {
   );
 }
 
-export default Directory;
+Directory.propTypes = {
+  directory: PropTypes.shape({
+    sections: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+        imageUrl: PropTypes.string,
+      })
+    ),
+  }),
+};
+
+const mapStateToProps = state => ({
+  directory: selectDirectory(state),
+});
+
+export default connect(mapStateToProps)(Directory);
