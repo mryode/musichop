@@ -14,10 +14,22 @@ const addItem = item => ({
   payload: item,
 });
 
+const removeItem = item => ({
+  type: cartActionTypes.REMOVE_ITEM,
+  payload: item,
+});
+
+const clearItemFromCart = item => ({
+  type: cartActionTypes.CLEAR_ITEM_FROM_CART,
+  payload: item.id,
+});
+
 const cartActions = {
   toggleCartHidden,
   setCartHidden,
   addItem,
+  removeItem,
+  clearItemFromCart,
 };
 
 export default cartActions;
