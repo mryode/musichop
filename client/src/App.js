@@ -11,6 +11,7 @@ import FirebaseAuth from './components/FirebaseAuth/FirebaseAuth';
 import Home from './pages/Home/Home';
 import Auth from './pages/Auth/Auth';
 import Shop from './pages/Shop/Shop';
+import Checkout from './pages/Checkout/Checkout';
 
 import './App.scss';
 
@@ -22,6 +23,7 @@ function App({ currentUser }) {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/shop" component={Shop} />
+          <Route exact path="/checkout" component={Checkout} />
           <Route
             path="/signin"
             render={() => (currentUser ? <Redirect to="/" /> : <Auth />)}

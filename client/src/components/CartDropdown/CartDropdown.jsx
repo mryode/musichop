@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { withRouter } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 import cartActions from '../../redux/cart/cartActions';
 import {
@@ -15,7 +17,7 @@ import CartItem from '../CartItem/CartItem';
 
 import './CartDropdown.scss';
 
-function CartDropdown({ hidden, setCartHidden, cartItems }) {
+function CartDropdown({ hidden, setCartHidden, cartItems, history }) {
   useOnClickOutside(
     [
       document.querySelector('.cart-dropdown'),
@@ -23,6 +25,11 @@ function CartDropdown({ hidden, setCartHidden, cartItems }) {
     ],
     () => setCartHidden(true)
   );
+
+  const handleGoToCheckout = () => {
+    history.push('/checkout');
+    setCartHidden(true);
+  };
 
   return (
     <div
@@ -35,7 +42,7 @@ function CartDropdown({ hidden, setCartHidden, cartItems }) {
           <span className="cart-empty-message">Your cart is empty</span>
         )}
       </div>
-      <Button>GO TO CHECKOUT</Button>
+      <Button onClick={handleGoToCheckout}>GO TO CHECKOUT</Button>
     </div>
   );
 }
@@ -44,6 +51,7 @@ CartDropdown.propTypes = {
   hidden: PropTypes.bool,
   setCartHidden: PropTypes.func,
   cartItems: PropTypes.arrayOf(PropTypes.object),
+  history: PropTypes.object,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -55,4 +63,6 @@ const mapStateToProps = state => ({
   cartItems: selectCartItems(state),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CartDropdown);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(CartDropdown)
+);
