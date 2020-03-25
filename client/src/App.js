@@ -30,7 +30,6 @@ function App({ currentUser }) {
           />
         </Switch>
       </FirebaseAuth>
-      ;
     </div>
   );
 }

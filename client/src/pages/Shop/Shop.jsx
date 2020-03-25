@@ -1,41 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux';
-import { selectCollections } from '../../redux/shop/shopSelectors';
+import { Route } from 'react-router-dom';
 
-import CollectionPreview from '../../components/CollectionPreview/CollectionPreview';
+import CollectionsOverview from '../../components/CollectionsOverview/CollectionsOverview';
+import Collection from '../Collection/Collection';
 
 import './Shop.scss';
 
-function Shop({ collections }) {
+function Shop({ match }) {
   return (
     <div className="shop-page">
-      {collections.map(({ id, title, routeName, items }) => (
-        <CollectionPreview
-          key={id}
-          title={title}
-          routeName={routeName}
-          items={items}
-        />
-      ))}
+      <Route exact path={`${match.path}`} component={CollectionsOverview} />
+      <Route path={`${match.path}/:collectionId`} component={Collection} />
     </div>
   );
 }
 
 Shop.propTypes = {
-  collections: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      title: PropTypes.string,
-      routeName: PropTypes.string,
-      items: PropTypes.array,
-    })
-  ),
+  match: PropTypes.shape({
+    path: PropTypes.string,
+    url: PropTypes.string,
+    isExact: PropTypes.bool,
+    params: PropTypes.object,
+  }),
 };
 
-const mapStateToProps = state => ({
-  collections: selectCollections(state),
-});
-
-export default connect(mapStateToProps)(Shop);
+export default Shop;

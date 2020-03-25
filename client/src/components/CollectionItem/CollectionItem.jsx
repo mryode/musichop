@@ -19,7 +19,7 @@ function CollectionItem({ item, addItem }) {
       />
       <div className="collection-item-footer">
         <span className="collection-item-name">{name}</span>
-        <span className="collection-item-price">{price}</span>
+        <span className="collection-item-price">${price}</span>
       </div>
       <Button inverted onClick={() => addItem(item)}>
         ADD TO CART

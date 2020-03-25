@@ -7,6 +7,12 @@
   margin: 10px auto;
   position: relative;
 
+  .custom-button {
+    position: absolute;
+    opacity: 0;
+    top: 280px;
+  }
+
   &:hover {
     .collection-item-image {
       opacity: 0.8;
@@ -32,20 +38,25 @@
     display: flex;
     justify-content: space-between;
     font-size: 18px;
-
-    .collection-item-name {
-      width: 90%;
-      margin-bottom: 15px;
-    }
-
-    .collection-item-price {
-      width: 10%;
-    }
   }
+}
 
-  .custom-button {
-    position: absolute;
-    opacity: 0;
-    top: 280px;
+@media screen and (max-width: 900px) {
+  .collection-item {
+    height: 250px;
+
+    .custom-button {
+      top: 180px;
+    }
+
+    &:hover {
+      .custom-button {
+        top: 160px;
+        min-width: 100px;
+        width: 100px;
+        padding: 5px;
+        font-size: 12px;
+      }
+    }
   }
 }
