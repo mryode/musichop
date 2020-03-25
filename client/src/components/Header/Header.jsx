@@ -23,10 +23,11 @@ function Header({ currentUser, signOut }) {
         <Link to="/shop" className="header-link">
           SHOP
         </Link>
-        <Link to="/" className="header-link">
+        <Link to="/contact" className="header-link">
           CONTACT
         </Link>
         {currentUser ? (
+          // eslint-disable-next-line
           <div className="header-link" onClick={signOut}>
             SIGN OUT
           </div>
