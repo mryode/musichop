@@ -44,6 +44,8 @@
       }
 
       &:hover {
+        cursor: pointer;
+
         .collection-view-more-icon {
           top: 30%;
           transition: 0.3s ease-out;

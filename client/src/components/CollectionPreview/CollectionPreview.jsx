@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { ReactSVG } from 'react-svg';
+import { withRouter } from 'react-router-dom';
 
 import CollectionItem from '../CollectionItem/CollectionItem';
 
 import './CollectionPreview.scss';
 
-function CollectionPreview({ title, items }) {
+function CollectionPreview({ title, items, routeName, match, history }) {
+  console.log('collection preview match', match);
   return (
     <div className="collection-preview">
       <h1 className="collection-title">{title.toUpperCase()}</h1>
@@ -18,7 +20,11 @@ function CollectionPreview({ title, items }) {
             <CollectionItem key={item.id} item={item} />
           ))}
         {/* TODO redirect to collection's page onClick */}
-        <div className="collection-view-more">
+        {/* eslint-disable-next-line */}
+        <div
+          className="collection-view-more"
+          onClick={() => history.push(`${match.url}/${routeName}`)}
+        >
           <ReactSVG
             className="collection-view-more-icon"
             src={`${process.env.PUBLIC_URL}/icons/view-more-arrow.svg`}
@@ -34,6 +40,8 @@ CollectionPreview.propTypes = {
   title: PropTypes.string,
   routeName: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.object),
+  match: PropTypes.object,
+  history: PropTypes.object,
 };
 
-export default CollectionPreview;
+export default withRouter(CollectionPreview);

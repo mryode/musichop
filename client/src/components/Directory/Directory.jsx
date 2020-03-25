@@ -13,8 +13,14 @@ function Directory({ directory }) {
 
   return (
     <div className="directory-menu">
-      {sections.map(({ id, title, imageUrl, size }) => (
-        <MenuItem key={id} title={title} imageUrl={imageUrl} size={size} />
+      {sections.map(({ id, title, imageUrl, size, linkUrl }) => (
+        <MenuItem
+          key={id}
+          title={title}
+          imageUrl={imageUrl}
+          size={size}
+          linkUrl={linkUrl}
+        />
       ))}
     </div>
   );
@@ -27,6 +33,7 @@ Directory.propTypes = {
         id: PropTypes.string,
         name: PropTypes.string,
         imageUrl: PropTypes.string,
+        linkUrl: PropTypes.string,
       })
     ),
   }),
