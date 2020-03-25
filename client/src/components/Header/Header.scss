@@ -8,6 +8,10 @@
 
   .header-logo {
     margin: auto 0;
+
+    img {
+      height: 75px;
+    }
   }
 
   .header-links {
@@ -20,8 +24,7 @@
 
   .header-link {
     padding: 10px 15px;
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 28px;
     text-decoration: none;
     color: black;
     cursor: pointer;

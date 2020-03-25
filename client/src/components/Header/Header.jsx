@@ -16,7 +16,7 @@ function Header({ currentUser, signOut }) {
     <header className="header">
       <div className="header-logo">
         <Link to="/" className="header-link">
-          MUSICHOP
+          <img src={`${process.env.PUBLIC_URL}/logo.png`} alt="logo" />
         </Link>
       </div>
       <div className="header-links">

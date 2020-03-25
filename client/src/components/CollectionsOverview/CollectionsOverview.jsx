@@ -9,6 +9,7 @@ import CollectionPreview from '../CollectionPreview/CollectionPreview';
 import './CollectionsOverview.scss';
 
 function CollectionsOverview({ collections }) {
+  console.log('collections', collections);
   return (
     <div className="collections-overview">
       {collections.map(({ id, title, routeName, items }) => (
@@ -24,7 +25,7 @@ function CollectionsOverview({ collections }) {
 }
 
 CollectionsOverview.propTypes = {
-  collections: PropTypes.shape(
+  collections: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
       title: PropTypes.string,
