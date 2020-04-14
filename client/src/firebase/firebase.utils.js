@@ -36,8 +36,37 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     });
   }
 
-  console.log('userRef', userRef);
   return userRef;
+};
+
+export const addCollectionAndDocuments = (collectionKey, documentsToAdd) => {
+  const collectionRef = firestore.collection(collectionKey);
+  const batch = firestore.batch();
+
+  documentsToAdd.forEach(document => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, document);
+  });
+
+  return batch.commit();
+};
+
+export const convertCollectionsSnapshotToMap = collections => {
+  const transformedCollection = collections.docs.map(doc => {
+    const { title, items } = doc.data();
+
+    return {
+      id: doc.id,
+      routeName: encodeURI(title.toLowerCase()),
+      title,
+      items,
+    };
+  });
+
+  return transformedCollection.reduce((acc, collection) => {
+    acc[collection.title.toLowerCase()] = collection;
+    return acc;
+  }, {});
 };
 
 const authProvider = new firebase.auth.GoogleAuthProvider();
