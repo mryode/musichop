@@ -9,7 +9,6 @@ import CollectionItem from '../CollectionItem/CollectionItem';
 import './CollectionPreview.scss';
 
 function CollectionPreview({ title, items, routeName, match, history }) {
-  console.log('collection preview match', match);
   return (
     <div className="collection-preview">
       <h1 className="collection-title">{title.toUpperCase()}</h1>
