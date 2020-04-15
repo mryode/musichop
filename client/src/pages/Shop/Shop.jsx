@@ -13,30 +13,59 @@ import {
 
 import CollectionsOverview from '../../components/CollectionsOverview/CollectionsOverview';
 import Collection from '../Collection/Collection';
+import WithSpinner from '../../components/WithSpinner/WithSpinner';
 
 import './Shop.scss';
 
 class Shop extends React.Component {
   unsubscribeFromSnapshot = null;
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: true,
+    };
+  }
+
   componentDidMount() {
     const { updateCollections } = this.props;
     const collectionRef = firestore.collection('collections');
 
-    this.unsubscribeFromSnapshot = collectionRef.onSnapshot(async snapshot => {
+    this.setState({ loading: true });
+
+    collectionRef.get().then(snapshot => {
       const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
 
       updateCollections(collectionsMap);
+      this.setState({ loading: false });
     });
   }
 
   render() {
     const { match } = this.props;
+    const { loading } = this.state;
+
+    const CollectionWithSpinner = WithSpinner(Collection);
+    const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
 
     return (
       <div className="shop-page">
-        <Route exact path={`${match.path}`} component={CollectionsOverview} />
-        <Route path={`${match.path}/:collectionId`} component={Collection} />
+        <Route
+          exact
+          path={`${match.path}`}
+          render={props => (
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            <CollectionsOverviewWithSpinner isLoading={loading} {...props} />
+          )}
+        />
+        <Route
+          path={`${match.path}/:collectionId`}
+          render={props => (
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            <CollectionWithSpinner isLoading={loading} {...props} />
+          )}
+        />
       </div>
     );
   }
