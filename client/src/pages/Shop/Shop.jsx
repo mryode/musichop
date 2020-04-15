@@ -14,9 +14,9 @@ import './Shop.scss';
 
 class Shop extends React.Component {
   componentDidMount() {
-    const { fetchCollectionsStartAsync } = this.props;
+    const { fetchCollectionsStart } = this.props;
 
-    fetchCollectionsStartAsync();
+    fetchCollectionsStart();
   }
 
   render() {
@@ -44,12 +44,11 @@ Shop.propTypes = {
     isExact: PropTypes.bool,
     params: PropTypes.object,
   }),
-  fetchCollectionsStartAsync: PropTypes.func,
+  fetchCollectionsStart: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchCollectionsStartAsync: () =>
-    dispatch(shopActions.fetchCollectionsStartAsync()),
+  fetchCollectionsStart: () => dispatch(shopActions.fetchCollectionsStart()),
 });
 
 export default connect(null, mapDispatchToProps)(Shop);
