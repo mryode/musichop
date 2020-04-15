@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+
+import userActions from '../../redux/user/userActions';
 
 import FormInput from '../FormInput/FormInput';
 import Button from '../Button/Button';
 
-import { signInWithGoogle, auth } from '../../firebase/firebase.utils';
-
 import './SignIn.scss';
 
-export default class SignIn extends Component {
+class SignIn extends Component {
   constructor(props) {
     super(props);
 
@@ -21,13 +24,9 @@ export default class SignIn extends Component {
     event.preventDefault();
 
     const { email, password } = this.state;
+    const { emailSignInStart } = this.props;
 
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      this.setState({ email: '', password: '' });
-    } catch (error) {
-      console.error(error);
-    }
+    emailSignInStart(email, password);
   };
 
   handleInputChange = event => {
@@ -38,6 +37,8 @@ export default class SignIn extends Component {
 
   render() {
     const { email, password } = this.state;
+    const { googleSignInStart } = this.props;
+
     return (
       <div className="form">
         <h2 className="form-title">I already have an account</h2>
@@ -67,7 +68,7 @@ export default class SignIn extends Component {
             <Button type="submit" onClick={this.handleSignInSubmit}>
               Sign In
             </Button>
-            <Button type="button" onClick={signInWithGoogle} isGoogleButton>
+            <Button type="button" onClick={googleSignInStart} isGoogleButton>
               Sign In With Google
             </Button>
           </div>
@@ -76,3 +77,16 @@ export default class SignIn extends Component {
     );
   }
 }
+
+SignIn.propTypes = {
+  googleSignInStart: PropTypes.func,
+  emailSignInStart: PropTypes.func,
+};
+
+const mapDispatchToProps = dispatch => ({
+  googleSignInStart: () => dispatch(userActions.googleSignInStart()),
+  emailSignInStart: (email, password) =>
+    dispatch(userActions.emailSignInStart({ email, password })),
+});
+
+export default connect(null, mapDispatchToProps)(SignIn);
