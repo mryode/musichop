@@ -1,16 +1,31 @@
-import { shopsData } from './shopsData';
 import { shopActionTypes } from './shopActionTypes';
 
 const initialState = {
-  collections: shopsData,
+  collections: null,
+  isFetching: false,
+  errorMessage: undefined,
 };
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case shopActionTypes.UPDATE_COLLECTIONS:
+    case shopActionTypes.FETCH_COLLECTIONS_START:
       return {
         ...state,
+        isFetching: true,
+      };
+
+    case shopActionTypes.FETCH_COLLECTIONS_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
         collections: payload,
+      };
+
+    case shopActionTypes.FETCH_COLLECTIONS_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        errorMessage: payload,
       };
 
     default:
