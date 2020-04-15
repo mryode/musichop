@@ -28,6 +28,19 @@ const checkUserSession = () => ({
   type: userActionTypes.CHECK_USER_SESSION,
 });
 
+const signOutStart = () => ({
+  type: userActionTypes.SIGN_OUT_START,
+});
+
+const signOutSuccess = () => ({
+  type: userActionTypes.SIGN_OUT_SUCCESS,
+});
+
+const signOutFailure = errorMessage => ({
+  type: userActionTypes.SIGN_OUT_FAILURE,
+  payload: errorMessage,
+});
+
 const userActions = {
   setCurrentUser,
   emailSignInStart,
@@ -35,6 +48,9 @@ const userActions = {
   signInSuccess,
   signInFailure,
   checkUserSession,
+  signOutStart,
+  signOutSuccess,
+  signOutFailure,
 };
 
 export default userActions;

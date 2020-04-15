@@ -18,7 +18,15 @@ export default (state = initialState, action) => {
         errorMessage: null,
       };
 
+    case userActionTypes.SIGN_OUT_SUCCESS:
+      return {
+        ...state,
+        currentUser: null,
+        errorMessage: null,
+      };
+
     case userActionTypes.SIGN_IN_FAILURE:
+    case userActionTypes.SIGN_OUT_FAILURE:
       return {
         ...state,
         currentUser: null,

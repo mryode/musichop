@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { auth } from '../../firebase/firebase.utils';
 import userActions from '../../redux/user/userActions';
 
 class FirebaseAuth extends React.Component {
@@ -20,13 +19,13 @@ class FirebaseAuth extends React.Component {
   }
 
   render() {
-    const { children, passSignOutTo } = this.props;
+    const { children, passSignOutTo, signOutStart } = this.props;
     const headerWithLogout = React.Children.map(children, child => {
       if (
         child.type.displayName &&
         child.type.displayName.includes(passSignOutTo)
       ) {
-        return React.cloneElement(child, { signOut: () => auth.signOut() });
+        return React.cloneElement(child, { signOut: signOutStart });
       }
       return child;
     });
@@ -38,10 +37,12 @@ FirebaseAuth.propTypes = {
   children: PropTypes.node,
   passSignOutTo: PropTypes.string,
   checkUserSession: PropTypes.func,
+  signOutStart: PropTypes.func,
 };
 
 const mapDispatchProps = dispatch => ({
   checkUserSession: () => dispatch(userActions.checkUserSession()),
+  signOutStart: () => dispatch(userActions.signOutStart()),
 });
 
 export default connect(null, mapDispatchProps)(FirebaseAuth);
