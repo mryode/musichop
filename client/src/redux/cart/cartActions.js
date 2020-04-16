@@ -24,12 +24,17 @@ const clearItemFromCart = item => ({
   payload: item.id,
 });
 
+const clearCart = () => ({
+  type: cartActionTypes.CLEAT_CART,
+});
+
 const cartActions = {
   toggleCartHidden,
   setCartHidden,
   addItem,
   removeItem,
   clearItemFromCart,
+  clearCart,
 };
 
 export default cartActions;

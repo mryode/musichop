@@ -29,6 +29,12 @@ export default (state = initialState, { type, payload }) => {
         cartItems: state.cartItems.filter(cartItem => cartItem.id !== payload),
       };
 
+    case cartActionTypes.CLEAT_CART:
+      return {
+        ...state,
+        cartItems: [],
+      };
+
     default:
       return state;
   }
