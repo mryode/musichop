@@ -41,6 +41,21 @@ const signOutFailure = errorMessage => ({
   payload: errorMessage,
 });
 
+const signUpStart = userCredentials => ({
+  type: userActionTypes.SIGN_UP_START,
+  payload: userCredentials,
+});
+
+const signUpSuccess = ({ user, additionalData }) => ({
+  type: userActionTypes.SIGN_UP_SUCCESS,
+  payload: { user, additionalData },
+});
+
+const signUpFailure = errorMessage => ({
+  type: userActionTypes.SIGN_UP_FAILURE,
+  payload: errorMessage,
+});
+
 const userActions = {
   setCurrentUser,
   emailSignInStart,
@@ -51,6 +66,9 @@ const userActions = {
   signOutStart,
   signOutSuccess,
   signOutFailure,
+  signUpStart,
+  signUpSuccess,
+  signUpFailure,
 };
 
 export default userActions;

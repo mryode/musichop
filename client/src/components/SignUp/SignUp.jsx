@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+
+import userActions from '../../redux/user/userActions';
 
 import FormInput from '../FormInput/FormInput';
 import Button from '../Button/Button';
 
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
-
 import './SignUp.scss';
 
-export default class SignUp extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props);
 
@@ -23,27 +26,13 @@ export default class SignUp extends Component {
     event.preventDefault();
 
     const { displayName, email, password, confirmPassword } = this.state;
+    const { signUpStart } = this.props;
 
+    // eslint-disable-next-line
     if (password !== confirmPassword) {
       alert("Passwords didn't match");
-    }
-
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-
-      await createUserProfileDocument(user, { displayName });
-
-      this.setState({
-        displayName: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-      });
-    } catch (error) {
-      console.error(error);
+    } else {
+      signUpStart({ displayName, email, password, confirmPassword });
     }
   };
 
@@ -106,3 +95,14 @@ export default class SignUp extends Component {
     );
   }
 }
+
+SignUp.propTypes = {
+  signUpStart: PropTypes.func,
+};
+
+const mapDispatchToProps = dispatch => ({
+  signUpStart: userCredentials =>
+    dispatch(userActions.signUpStart(userCredentials)),
+});
+
+export default connect(null, mapDispatchToProps)(SignUp);
