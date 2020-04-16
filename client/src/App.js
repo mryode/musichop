@@ -19,7 +19,6 @@ import './App.scss';
 
 function App({ currentUser, checkUserSession }) {
   React.useEffect(() => {
-    console.log('here');
     checkUserSession();
   }, [checkUserSession]);
 

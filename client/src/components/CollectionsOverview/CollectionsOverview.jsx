@@ -9,7 +9,6 @@ import CollectionPreview from '../CollectionPreview/CollectionPreview';
 import './CollectionsOverview.scss';
 
 function CollectionsOverview({ collections }) {
-  console.log('collections', collections);
   return (
     <div className="collections-overview">
       {collections.map(({ id, title, routeName, items }) => (

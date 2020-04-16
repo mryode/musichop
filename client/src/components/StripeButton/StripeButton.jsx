@@ -8,7 +8,6 @@ function StripeCheckoutButton({ price }) {
   const publishableKey = 'pk_test_g8EAuGHdiyZCP7XUHPqg9ukK00OwJj6u3Z';
 
   const handleToken = token => {
-    console.log('token', token);
     alert('Payment successful!');
   };
 
