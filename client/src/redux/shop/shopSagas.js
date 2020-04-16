@@ -13,9 +13,7 @@ function* fetchCollectionsAsync() {
 
   try {
     const snapshot = yield collectionRef.get();
-    console.log('snapshot', snapshot);
     const collectionMap = yield call(convertCollectionsSnapshotToMap, snapshot);
-    console.log('collectionMap', collectionMap);
 
     yield put(shopActions.fetchCollectionsSuccess(collectionMap));
   } catch (error) {

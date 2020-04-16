@@ -10,8 +10,9 @@ import CartIcon from '../CartIcon/CartIcon';
 import CartDropdown from '../CartDropdown/CartDropdown';
 
 import './Header.scss';
+import userActions from '../../redux/user/userActions';
 
-function Header({ currentUser, signOut }) {
+function Header({ currentUser, signOutStart }) {
   return (
     <header className="header">
       <div className="header-logo">
@@ -28,7 +29,7 @@ function Header({ currentUser, signOut }) {
         </Link>
         {currentUser ? (
           // eslint-disable-next-line
-          <div className="header-link" onClick={signOut}>
+          <div className="header-link" onClick={signOutStart}>
             SIGN OUT
           </div>
         ) : (
@@ -45,11 +46,15 @@ function Header({ currentUser, signOut }) {
 
 Header.propTypes = {
   currentUser: PropTypes.object,
-  signOut: PropTypes.func,
+  signOutStart: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   currentUser: selectCurrentUser(state),
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = dispatch => ({
+  signOutStart: () => dispatch(userActions.signOutStart()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
