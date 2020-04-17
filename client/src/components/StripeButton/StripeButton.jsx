@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import axios from 'axios';
+
 import StripeCheckout from 'react-stripe-checkout';
 
 function StripeCheckoutButton({ price }) {
@@ -8,7 +10,20 @@ function StripeCheckoutButton({ price }) {
   const publishableKey = 'pk_test_g8EAuGHdiyZCP7XUHPqg9ukK00OwJj6u3Z';
 
   const handleToken = token => {
-    alert('Payment successful!');
+    axios({
+      url: 'payment',
+      method: 'POST',
+      data: {
+        token,
+        amount: priceInCents,
+      },
+    })
+      .then(() => {
+        alert('Payment successful!');
+      })
+      .catch(err => {
+        alert(err.response.data.error.message);
+      });
   };
 
   return (
